@@ -5,6 +5,8 @@ import com.eeee.sh2.sales.model.Account;
 import com.eeee.sh2.sales.model.Customer;
 import com.eeee.sh2.sales.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
@@ -33,9 +35,12 @@ public class CustomerRestController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public Customer findById(@PathVariable Long id) {
+    public ResponseEntity<Customer> findById(@PathVariable Long id) {
         Optional<Customer> c = customerService.find(id);
-        return c.orElse(null);
+        if (c.isPresent()) {
+            return new ResponseEntity<Customer>(c.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

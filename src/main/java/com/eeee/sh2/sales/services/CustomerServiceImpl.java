@@ -18,12 +18,18 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerRepository customerRepository;
 
     @Override
-    public  List<Customer> saveAll(List<Customer> customers) {
+    public List<Customer> saveAll(List<Customer> customers) {
         return customerRepository.saveAll(customers);
     }
 
     @Override
     public Optional<Customer> find(Long id) {
-        return Optional.ofNullable(customerRepository.getOne(id));
+        Customer c = null;
+        try {
+            c = customerRepository.getOne(id);
+        } catch (Exception e) {
+            Optional.empty();
+        }
+        return Optional.ofNullable(c);
     }
 }
