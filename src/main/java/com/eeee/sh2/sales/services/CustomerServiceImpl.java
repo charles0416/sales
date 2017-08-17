@@ -32,4 +32,9 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return Optional.ofNullable(c);
     }
+
+    @Override
+    public Customer save(Customer customer) {
+        return customerRepository.save(customer);
+    }
 }

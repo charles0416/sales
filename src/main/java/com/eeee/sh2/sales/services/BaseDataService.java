@@ -9,5 +9,8 @@ import java.util.Optional;
  */
 public interface BaseDataService<T> {
     List<T> saveAll(List<T> rows);
+
     Optional<T> find(Long id);
+
+    T save(T t);
 }

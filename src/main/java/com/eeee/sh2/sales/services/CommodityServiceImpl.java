@@ -20,4 +20,10 @@ public class CommodityServiceImpl implements CommodityService {
     public Optional<Commodity> find(Long id) {
         return null;
     }
+
+    @Override
+    public Commodity save(Commodity commodity) {
+        //TODO: to be implemented.
+        return null;
+    }
 }
