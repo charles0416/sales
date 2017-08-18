@@ -1,7 +1,5 @@
 package com.eeee.sh2.sales.controllers;
 
-import com.eeee.sh2.sales.exceptions.BadRequestException;
-import com.eeee.sh2.sales.model.Account;
 import com.eeee.sh2.sales.model.Customer;
 import com.eeee.sh2.sales.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,20 +23,44 @@ public class CustomerRestController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
-    public int saveOrUpdate(@RequestBody List<Customer> customerList) {
-        return customerService.saveAll(customerList).size();
-    }
-
-    private class CustomerList extends ArrayList<Customer> {
+    public ResponseEntity<Customer> add(@RequestBody Customer customer) {
+        Customer c =  customerService.save(customer);
+        return new ResponseEntity<Customer>(c, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Customer> findById(@PathVariable Long id) {
+    public ResponseEntity<Customer> retrive(@PathVariable Long id) {
         Optional<Customer> c = customerService.find(id);
         if (c.isPresent()) {
             return new ResponseEntity<Customer>(c.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Customer> retriveAll() {
+        return customerService.listAll();
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public ResponseEntity<Customer> update(@PathVariable Long id, @RequestBody Customer customer) {
+        return null;
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    @ResponseBody
+    public int saveAll(@RequestBody List<Customer> customerList) {
+        return customerService.saveAll(customerList).size();
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public boolean delete() {
+        return false;
+    }
+
+    private class CustomerList extends ArrayList<Customer> {
     }
 }

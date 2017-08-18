@@ -8,9 +8,15 @@ import java.util.Optional;
  * Created by Charles on 28/07/2017.
  */
 public interface BaseDataService<T> {
-    List<T> saveAll(List<T> rows);
+    T add(T t);
 
     Optional<T> find(Long id);
 
+    List<T> listAll();
+
     T save(T t);
+
+    List<T> saveAll(List<T> rows);
+
+    boolean delete(Long id);
 }

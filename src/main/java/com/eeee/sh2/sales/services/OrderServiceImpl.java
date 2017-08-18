@@ -5,6 +5,7 @@ import com.eeee.sh2.sales.model.Order;
 import com.eeee.sh2.sales.repositories.OrderRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * Created by Charles on 28/07/2017.
  */
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl extends DefaultDataServiceImpl<Order> implements OrderService {
 
     @Autowired
     OrderRepository orderRepository;
@@ -32,6 +33,11 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
+    protected JpaRepository<Order, Long> getRepository() {
+        return orderRepository;
+    }
+
+    @Override
     public Optional<Order> find(Long id) {
         Order order = null;
         try {
@@ -40,6 +46,11 @@ public class OrderServiceImpl implements OrderService {
             Optional.empty();
         }
         return Optional.ofNullable(order);
+    }
+
+    @Override
+    public List<Order> listAll() {
+        return orderRepository.findAll();
     }
 
     @Override
