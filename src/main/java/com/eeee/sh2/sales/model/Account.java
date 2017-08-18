@@ -1,19 +1,12 @@
 package com.eeee.sh2.sales.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 /**
  * Created by Charles on 15/06/2017.
  */
 @Entity
-public class Account {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Account extends PersistentObject {
 
     private String surname;
 
@@ -31,14 +24,6 @@ public class Account {
     }
 
     public Account() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getSurname() {

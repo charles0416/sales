@@ -1,16 +1,14 @@
 package com.eeee.sh2.sales.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  * Created by Charles on 28/07/2017.
  */
 @Entity
-public class OrderDetails {
+public class OrderDetails extends PersistentObject {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private double freightPerItem;
     private double price;
     private double purchasePrice;
@@ -23,14 +21,6 @@ public class OrderDetails {
     private Commodity commodity;
 
     public OrderDetails() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public double getFreightPerItem() {

@@ -1,6 +1,8 @@
 package com.eeee.sh2.sales.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
 
@@ -8,11 +10,7 @@ import java.util.List;
  * Created by Charles on 28/07/2017.
  */
 @Entity(name = "_order")
-public class Order {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Order extends PersistentObject {
 
     private double amount;
     private boolean closed;
@@ -46,14 +44,6 @@ public class Order {
     private List<OrderDetails> orderDetails;
 
     public Order() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public double getAmount() {
