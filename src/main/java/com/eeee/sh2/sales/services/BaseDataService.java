@@ -1,5 +1,7 @@
 package com.eeee.sh2.sales.services;
 
+import com.eeee.sh2.sales.exceptions.RecordNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +15,8 @@ public interface BaseDataService<T> {
     Optional<T> find(Long id);
 
     List<T> listAll();
+
+    T update(T t) throws RecordNotFoundException;
 
     T save(T t);
 

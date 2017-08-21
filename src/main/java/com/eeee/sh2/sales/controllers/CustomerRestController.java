@@ -1,5 +1,6 @@
 package com.eeee.sh2.sales.controllers;
 
+import com.eeee.sh2.sales.exceptions.RecordNotFoundException;
 import com.eeee.sh2.sales.model.Customer;
 import com.eeee.sh2.sales.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +24,7 @@ public class CustomerRestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Customer> add(@RequestBody Customer customer) {
-        Customer c =  customerService.save(customer);
+        Customer c = customerService.save(customer);
         return new ResponseEntity<Customer>(c, HttpStatus.OK);
     }
 
@@ -46,7 +46,17 @@ public class CustomerRestController {
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public ResponseEntity<Customer> update(@PathVariable Long id, @RequestBody Customer customer) {
-        return null;
+        Customer updatedCustomer = null;
+        if (id != customer.getId()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            updatedCustomer = customerService.update(customer);
+        } catch (RecordNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Customer>(updatedCustomer, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
@@ -57,10 +67,7 @@ public class CustomerRestController {
 
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public boolean delete() {
-        return false;
-    }
-
-    private class CustomerList extends ArrayList<Customer> {
+    public boolean delete(@PathVariable Long id) {
+        return customerService.delete(id);
     }
 }

@@ -23,14 +23,4 @@ public class CustomerServiceImpl extends  DefaultDataServiceImpl<Customer> imple
         return repository;
     }
 
-//    @Override
-//    public Optional<Customer> find(Long id) {
-//        Customer c = null;
-//        try {
-//            c = customerRepository.getOne(id);
-//        } catch (Exception e) {
-//            Optional.empty();
-//        }
-//        return Optional.ofNullable(c);
-//    }
 }
