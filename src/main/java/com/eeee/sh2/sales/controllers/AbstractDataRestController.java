@@ -18,7 +18,7 @@ public abstract class AbstractDataRestController<SERV extends BaseDataService, D
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<DO> add(@RequestBody DO dataObject) {
-        DO obj = (DO) this.getService().save(dataObject);
+        DO obj = (DO) this.getService().add(dataObject);
         return new ResponseEntity<DO>(obj, HttpStatus.OK);
     }
 
@@ -41,7 +41,7 @@ public abstract class AbstractDataRestController<SERV extends BaseDataService, D
     @ResponseBody
     public ResponseEntity<DO> update(@PathVariable Long id, @RequestBody DO dataObject) {
         DO updatedRecord = null;
-        if (id != updatedRecord.getId()) {
+        if (id != dataObject.getId()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * Created by Charles on 28/07/2017.
  */
 @Service
-public class CommodityServiceImpl extends DefaultDataServiceImpl<Commodity> {
+public class CommodityServiceImpl extends DefaultDataServiceImpl<Commodity> implements CommodityService {
 
     @Autowired
     CommodityRepository commodityRepository;
